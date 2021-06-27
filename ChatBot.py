@@ -35,18 +35,13 @@ class ChatBot:
         stop_words.extend(['что', 'это', 'так', 'вот', 'быть', 'как', 'в', '—', '–', 'к', 'на', '...'])
 
         model_config = read_json(config_path)
-        self._model = train_model(model_config)  # или build_model(model_config)
-        # result = model("меня задержали")
+        self._model = train_model(model_config)
+
 
     def ask(self, question: str):
         answers, probability = self._model([question])
         message = self._fallback.message_or_fallback(max(probability[0]), answers[0])
         return message
-        #valid = self._check_similarity(probability[0], self._fallback.threshold)
-        #if valid:
-        #    return answers[0], True
-        #else:
-        #    return self._fallback.fallback_message, True
 
     @staticmethod
     def normalize_text(self):
